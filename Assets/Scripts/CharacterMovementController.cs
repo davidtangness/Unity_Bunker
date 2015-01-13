@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovementController : MonoBehaviour {
+public class CharacterMovementController : MonoBehaviour {
 
 	public Vector3 destination;
 	public float moveSpeed;
 
 	// Use this for initialization
 	void Start () {
-
+		destination = rigidbody2D.position;
 	}
 	
 	// Update is called once per frame
