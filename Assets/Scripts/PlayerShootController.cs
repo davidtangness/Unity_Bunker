@@ -20,29 +20,21 @@ public class PlayerShootController : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
-				//if no target exists, skip the rest of this update.
-				if (target == null) {
-						//Do nothing
-				} else {
-						//If character has LOS to target, fire at target
-
+				//if no target exists, wait for PlayerInputController to set one.
+				if (target != null){
+						//Determine vector from player to target
 						float xDifference = target.transform.position.x - transform.position.x;
 						float yDifference = target.transform.position.y - transform.position.y;
-
 						Vector3 targetVector = new Vector3 (xDifference, yDifference, 0);
 
-						//TODO: Add check for aim reticle once those are implemented.
-						int sightLayerMask = 3 << 9; //Check only layers 9 and 10 (Enemy and Bunkers)
+						//Raycast to find obstacles between the player and target		
+						int sightLayerMask = 1 << 10; //Check layer 10: Bunkers
 						RaycastHit2D hit = Physics2D.Raycast (transform.position, targetVector, Mathf.Infinity, sightLayerMask);
 
-						if (hit.collider == null) {
-								//TODO: say sight blocked?
-						} else {
-								if (hit.rigidbody.gameObject == target && Time.time > nextShotTime) {
-										nextShotTime = Time.time + (1 / shotsPerSecond);	
-										FireAtTarget ();
-
-								}
+						//If no obstacles are found, fire at the target
+						if (hit.collider == null & Time.time > nextShotTime) {
+								nextShotTime = Time.time + (1 / shotsPerSecond);	
+								FireAtTarget ();			
 						}
 				}
 		}
