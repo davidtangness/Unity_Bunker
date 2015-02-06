@@ -12,8 +12,8 @@ public class ProjectileController : MonoBehaviour
 		void Start ()
 		{
 
-				float randomX = Random.Range (-1, 1) * maxSpinFactor;
-				float randomY = Random.Range (-1, 1) * maxSpinFactor;
+				float randomX = Random.Range (-1.0f, 1.0f) * maxSpinFactor;
+				float randomY = Random.Range (-1.0f, 1.0f) * maxSpinFactor;				
 				rigidbody2D.AddRelativeForce (new Vector2 (randomX, randomY));
 		}
 	
